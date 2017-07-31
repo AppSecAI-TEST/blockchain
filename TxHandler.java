@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.ArrayList;
+
 public class TxHandler {
 
     /**
@@ -5,8 +8,12 @@ public class TxHandler {
      * {@code utxoPool}. This should make a copy of utxoPool by using the UTXOPool(UTXOPool uPool)
      * constructor.
      */
+
+    private HashMap<UTXO, Transaction.Output> pool;
+
     public TxHandler(UTXOPool utxoPool) {
         // IMPLEMENT THIS
+        this.pool = new HashMap<UTXO, Transaction.Output>(utxoPool);
     }
 
     /**
@@ -20,6 +27,17 @@ public class TxHandler {
      */
     public boolean isValidTx(Transaction tx) {
         // IMPLEMENT THIS
+        ArrayList<Transaction.Output> txOutputs = tx.getOutputs();
+        if (tx.numOutputs() != this.pool.size())
+            return false;
+        else {
+            for (Transaction.Output out : txOutputs){
+                
+            }
+        }
+
+        
+        
     }
 
     /**
