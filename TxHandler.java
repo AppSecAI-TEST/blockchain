@@ -31,8 +31,11 @@ public class TxHandler {
         if (tx.numOutputs() != this.pool.size())
             return false;
         else {
-            for (Transaction.Output out : txOutputs){
-                
+            for (UTXO out : this.pool.getAllUTXO()){
+                if (tx.getHash() != out.getTxHash())
+                    return false;
+                if (tx.getOutput(out.getIndex()) != out.getIndex())
+                    return false;
             }
         }
 
