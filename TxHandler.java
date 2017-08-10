@@ -13,7 +13,7 @@ public class TxHandler {
 
     public TxHandler(UTXOPool utxoPool) {
         // IMPLEMENT THIS
-        this.pool = new HashMap<UTXO, Transaction.Output>(utxoPool);
+        pool = new HashMap<UTXO, Transaction.Output>(utxoPool.H);
     }
 
     /**
@@ -27,21 +27,14 @@ public class TxHandler {
      */
     public boolean isValidTx(Transaction tx) {
         // IMPLEMENT THIS
-        ArrayList<Transaction.Output> txOutputs = tx.getOutputs();
-        if (tx.numOutputs() != this.pool.size())
-            return false;
-        else {
-            for (UTXO out : this.pool.getAllUTXO()){
-                if (tx.getHash() != out.getTxHash())
-                    return false;
-                if (tx.getOutput(out.getIndex()) != out.getIndex())
-                    return false;
-            }
+        // (1)
+        for (Transaction.Input in : tx.getInputs()){
+            UTXO ut = new UTXO(in.prevTxHash, in.outputIndex);
+            if  (!this.pool.contains(ut))
+                return false;
         }
-
-        
-        
     }
+        
 
     /**
      * Handles each epoch by receiving an unordered array of proposed transactions, checking each
