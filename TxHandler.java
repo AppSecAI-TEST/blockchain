@@ -9,11 +9,11 @@ public class TxHandler {
      * constructor.
      */
 
-    private HashMap<UTXO, Transaction.Output> pool;
+    private UTXOPool pool;
 
     public TxHandler(UTXOPool utxoPool) {
         // IMPLEMENT THIS
-        pool = new HashMap<UTXO, Transaction.Output>(utxoPool.H);
+        pool = new UTXOPool(utxoPool);
     }
 
     /**
@@ -27,12 +27,14 @@ public class TxHandler {
      */
     public boolean isValidTx(Transaction tx) {
         // IMPLEMENT THIS
+        boolean result = false;
         // (1)
         for (Transaction.Input in : tx.getInputs()){
             UTXO ut = new UTXO(in.prevTxHash, in.outputIndex);
             if  (!this.pool.contains(ut))
-                return false;
+                result = false;
         }
+        return false;
     }
         
 
@@ -43,6 +45,7 @@ public class TxHandler {
      */
     public Transaction[] handleTxs(Transaction[] possibleTxs) {
         // IMPLEMENT THIS
+        return possibleTxs;
     }
 
 }
